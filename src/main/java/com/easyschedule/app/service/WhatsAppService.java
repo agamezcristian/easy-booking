@@ -36,10 +36,8 @@ public class WhatsAppService {
             var from = message.from;
             var text = message.text.body;
 
-            // Responde al mensaje recibido
             sendWhatsAppMessage(from, "Hola! Recibimos tu mensaje: " + text);
         } catch (Exception e) {
-            // Manejo de errores
             System.out.println("Error procesando el mensaje: " + e.getMessage());
         }
     }
