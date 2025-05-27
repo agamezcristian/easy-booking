@@ -1,0 +1,36 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2",
+        "author": "Cristian",
+        "changes": [
+          {
+            "insert": {
+              "tableName": "roles",
+              "columns": [
+                { "column": { "name": "id", "valueNumeric": 1 } },
+                { "column": { "name": "name", "value": "ADMIN" } },
+                { "column": { "name": "status", "valueBoolean": true } },
+                { "column": { "name": "created_at", "valueDate": "2024-01-01T00:00:00" } },
+                { "column": { "name": "updated_at", "valueDate": "2024-01-01T00:00:00" } }
+              ]
+            }
+          },
+          {
+            "insert": {
+              "tableName": "roles",
+              "columns": [
+                { "column": { "name": "id", "valueNumeric": 2 } },
+                { "column": { "name": "name", "value": "USER" } },
+                { "column": { "name": "status", "valueBoolean": true } },
+                { "column": { "name": "created_at", "valueDate": "2024-01-01T00:00:00" } },
+                { "column": { "name": "updated_at", "valueDate": "2024-01-01T00:00:00" } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

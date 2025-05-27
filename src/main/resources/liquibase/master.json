@@ -1,0 +1,24 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "classpath:liquibase/changelog/db.changelog-create-tables.json"
+      }
+    },
+    {
+      "include": {
+        "file": "classpath:liquibase/changelog/db.changelog-insert-roles.json"
+      }
+    },
+    {
+      "include": {
+        "file": "classpath:liquibase/changelog/db.changelog-insert-admin-user.json"
+      }
+    },
+    {
+      "include": {
+        "file": "classpath:liquibase/changelog/db.changelog-create-tables-services-and-others.json"
+      }
+    }
+  ]
+}

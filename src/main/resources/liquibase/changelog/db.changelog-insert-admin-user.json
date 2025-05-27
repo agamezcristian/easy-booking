@@ -1,0 +1,29 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "insert-admin-user",
+        "author": "Cristian",
+        "changes": [
+          {
+            "insert": {
+              "tableName": "users",
+              "columns": [
+                { "column": { "name": "id", "value": 1 } },
+                { "column": { "name": "email", "value": "admin@example.com" } },
+                { "column": { "name": "name", "value": "Admin User" } },
+                { "column": { "name": "username", "value": "admin" } },
+                { "column": { "name": "password", "value": "$2a$12$HnsvH249qiUoO4JJRvvbf.6NpQKYRygDPw5eouG5700mwelM3UJri" } },
+                { "column": { "name": "status", "valueBoolean": true } },
+                { "column": { "name": "last_login_at", "valueDate": "2024-01-01T00:00:00" } },
+                { "column": { "name": "created_at", "valueDate": "2024-01-01T00:00:00" } },
+                { "column": { "name": "updated_at", "valueDate": "2024-01-01T00:00:00" } },
+                { "column": { "name": "role_id", "valueNumeric": 1 } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "business-table",
+        "author": "Cristian",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "business",
+              "columns": [
+                { "column": { "name": "id", "type": "BIGINT", "autoIncrement": true, "constraints": { "primaryKey": true } } },
+                { "column": { "name": "name", "type": "VARCHAR(255)" } },
+                { "column": { "name": "description", "type": "TEXT" } },
+                { "column": { "name": "phone", "type": "VARCHAR(20)" }  },
+                { "column": { "name": "email", "type": "VARCHAR(255)" } },
+                { "column": { "name": "status", "type": "VARCHAR(50)" } },
+                { "column": { "name": "country", "type": "VARCHAR(100)" } },
+                { "column": { "name": "city", "type": "VARCHAR(100)" } },
+                { "column": { "name": "state", "type": "VARCHAR(100)" } },
+                { "column": { "name": "created_at", "type": "TIMESTAMP" } },
+                { "column": { "name": "updated_at", "type": "TIMESTAMP" } }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "customer-table",
+        "author": "Cristian",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "customer",
+              "columns": [
+                { "column": { "name": "id", "type": "BIGINT", "autoIncrement": true, "constraints": { "primaryKey": true } } },
+                { "column": { "name": "name", "type": "VARCHAR(255)" } },
+                { "column": { "name": "phone", "type": "VARCHAR(20)" } },
+                { "column": { "name": "email", "type": "VARCHAR(255)" } },
+                { "column": { "name": "last_interaction", "type": "TIMESTAMP" } },
+                { "column": { "name": "created_at", "type": "TIMESTAMP" } },
+                { "column": { "name": "updated_at", "type": "TIMESTAMP" } }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "appointment-table",
+        "author": "Cristian",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "appointment",
+              "columns": [
+                { "column": { "name": "id", "type": "BIGINT", "autoIncrement": true, "constraints": { "primaryKey": true } } },
+                { "column": { "name": "business_id", "type": "BIGINT" } },
+                { "column": { "name": "customer_id", "type": "BIGINT" } },
+                { "column": { "name": "appointment_date", "type": "DATE" } },
+                { "column": { "name": "appointment_time", "type": "TIME" } },
+                { "column": { "name": "status", "type": "VARCHAR(50)" } },
+                { "column": { "name": "send_reminder", "type": "BOOLEAN" } },
+                { "column": { "name": "created_by", "type": "VARCHAR(100)" } },
+                { "column": { "name": "created_at", "type": "TIMESTAMP" } },
+                { "column": { "name": "updated_at", "type": "TIMESTAMP" } }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "service-table",
+        "author": "Cristian",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "service",
+              "columns": [
+                { "column": { "name": "id", "type": "BIGINT", "autoIncrement": true, "constraints": { "primaryKey": true } } },
+                { "column": { "name": "business_id", "type": "BIGINT" } },
+                { "column": { "name": "name", "type": "VARCHAR(255)" } },
+                { "column": { "name": "description", "type": "TEXT" } },
+                { "column": { "name": "duration", "type": "INT" } },
+                { "column": { "name": "price", "type": "DECIMAL(10,2)" } },
+                { "column": { "name": "status", "type": "VARCHAR(50)" } },
+                { "column": { "name": "created_at", "type": "TIMESTAMP" } },
+                { "column": { "name": "updated_at", "type": "TIMESTAMP" } }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "fk_appointment_business",
+        "author": "Cristian",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "constraintName": "fk_appointment_business",
+              "baseTableName": "appointment",
+              "baseColumnNames": "business_id",
+              "referencedTableName": "business",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "fk_appointment_customer",
+        "author": "Cristian",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "constraintName": "fk_appointment_customer",
+              "baseTableName": "appointment",
+              "baseColumnNames": "customer_id",
+              "referencedTableName": "customer",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "fk_service_business",
+        "author": "Cristian",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "constraintName": "fk_service_business",
+              "baseTableName": "service",
+              "baseColumnNames": "business_id",
+              "referencedTableName": "business",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
