@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "✅ Cita cancelada exitosamente.\n\n📅 Cita cancelada: {{appointment_date}} a las {{appointment_time}}\n📍 Código: {{appointment_code}}\n\nSi necesitas agendar una nueva cita, estaré aquí para ayudarte. 😊"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "Perfecto, vas a reagendar tu cita: 🔄\n\n📅 Cita actual: {{current_date}} a las {{current_time}}\n\nPor favor, indícame la nueva fecha y hora deseada:\n• Nueva fecha (dd/mm/aaaa)\n• Nueva hora (HH:MM)\n\nEjemplo: 20/06/2025 a las 16:00"
+  }
+}

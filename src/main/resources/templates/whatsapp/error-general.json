@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "😔 Lo siento, ocurrió un error inesperado.\n\nPor favor, intenta nuevamente o escribe 'menu' para ver las opciones disponibles."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "📋 Actualmente no tienes citas programadas {{customer_name}}.\n\n¿Te gustaría agendar una nueva cita? Estaré encantado de ayudarte. 😊"
+  }
+}

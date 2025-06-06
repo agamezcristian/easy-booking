@@ -1,0 +1,31 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "list",
+    "body": {
+      "text": "Entiendo que necesitas cancelar una cita {{customer_name}}. Selecciona cuál deseas cancelar: ❌"
+    },
+    "action": {
+      "button": "Mis citas",
+      "sections": [
+        {
+          "title": "Citas a Cancelar",
+          "rows": [
+            {
+              "id": "cancel_{{appointment_id_1}}",
+              "title": "{{appointment_date_1}}",
+              "description": "{{appointment_time_1}} - Código: {{appointment_code_1}}"
+            },
+            {
+              "id": "cancel_{{appointment_id_2}}",
+              "title": "{{appointment_date_2}}",
+              "description": "{{appointment_time_2}} - Código: {{appointment_code_2}}"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

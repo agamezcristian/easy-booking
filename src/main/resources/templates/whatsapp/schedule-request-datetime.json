@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "Perfecto {{customer_name}}, te ayudo a agendar tu cita. 📅\n\nPor favor, indícame:\n• Fecha deseada (dd/mm/aaaa)\n• Hora preferida (HH:MM)\n\nEjemplo: 15/06/2025 a las 14:30"
+  }
+}

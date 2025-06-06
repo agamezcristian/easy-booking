@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "✅ ¡Cita reagendada exitosamente!\n\n📅 Nueva fecha: {{new_appointment_date}}\n🕐 Nueva hora: {{new_appointment_time}}\n📍 Código de cita: {{appointment_code}}\n\nTu cita ha sido actualizada. ¡Te esperamos! 😊"
+  }
+}

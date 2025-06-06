@@ -1,0 +1,29 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "button",
+    "body": {
+      "text": "¿Hay algo más en lo que pueda ayudarte {{customer_name}}? 😊"
+    },
+    "action": {
+      "buttons": [
+        {
+          "type": "reply",
+          "reply": {
+            "id": "main_menu",
+            "title": "📋 Ver opciones"
+          }
+        },
+        {
+          "type": "reply",
+          "reply": {
+            "id": "end_conversation",
+            "title": "👋 Terminar"
+          }
+        }
+      ]
+    }
+  }
+}

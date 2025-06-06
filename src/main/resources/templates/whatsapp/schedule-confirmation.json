@@ -1,0 +1,29 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "button",
+    "body": {
+      "text": "¡Excelente! He verificado la disponibilidad. ✅\n\n📅 Fecha: {{appointment_date}}\n🕐 Hora: {{appointment_time}}\n👤 Cliente: {{customer_name}}\n\n¿Confirmas esta cita?"
+    },
+    "action": {
+      "buttons": [
+        {
+          "type": "reply",
+          "reply": {
+            "id": "confirm_schedule",
+            "title": "✅ Confirmar"
+          }
+        },
+        {
+          "type": "reply",
+          "reply": {
+            "id": "cancel_schedule",
+            "title": "❌ Cancelar"
+          }
+        }
+      ]
+    }
+  }
+}

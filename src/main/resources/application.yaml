@@ -38,3 +38,7 @@ whatsapp:
     url: "https://graph.facebook.com/v22.0/%s/messages"
     token: "${TOKEN}"
     numberid: "${NUMBER-ID}"
+  webhook:
+    secret: "${WHATSAPP-WEBHOOK-SECRET}"
+    verify:
+      token: "${WHATSAPP-VERIFY-TOKEN}"

@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "Entiendo tu decisión. Sin la autorización no puedo procesar tu solicitud. Si cambias de opinión, puedes escribirnos nuevamente.\n\n¡Que tengas un excelente día! 😊"
+  }
+}

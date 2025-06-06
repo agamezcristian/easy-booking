@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "📋 Aquí tienes tus citas programadas {{customer_name}}:\n\n{{appointments_list}}\n\n¿Necesitas realizar algún cambio en alguna de estas citas?"
+  }
+}

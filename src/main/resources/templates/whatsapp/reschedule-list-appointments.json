@@ -1,0 +1,31 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "list",
+    "body": {
+      "text": "Aquí tienes tus citas programadas {{customer_name}}. Selecciona la que deseas reagendar: 🔄"
+    },
+    "action": {
+      "button": "Mis citas",
+      "sections": [
+        {
+          "title": "Citas Programadas",
+          "rows": [
+            {
+              "id": "reschedule_{{appointment_id_1}}",
+              "title": "{{appointment_date_1}}",
+              "description": "{{appointment_time_1}} - Código: {{appointment_code_1}}"
+            },
+            {
+              "id": "reschedule_{{appointment_id_2}}",
+              "title": "{{appointment_date_2}}",
+              "description": "{{appointment_time_2}} - Código: {{appointment_code_2}}"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

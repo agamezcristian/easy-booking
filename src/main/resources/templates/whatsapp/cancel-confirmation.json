@@ -1,0 +1,29 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "button",
+    "body": {
+      "text": "⚠️ Estás a punto de cancelar tu cita:\n\n📅 Fecha: {{appointment_date}}\n🕐 Hora: {{appointment_time}}\n📍 Código: {{appointment_code}}\n\n¿Estás seguro de que deseas cancelarla?"
+    },
+    "action": {
+      "buttons": [
+        {
+          "type": "reply",
+          "reply": {
+            "id": "confirm_cancel_{{appointment_id}}",
+            "title": "✅ Sí, cancelar"
+          }
+        },
+        {
+          "type": "reply",
+          "reply": {
+            "id": "keep_appointment",
+            "title": "❌ No, mantener"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "❌ No pude entender la fecha y hora que proporcionaste.\n\nPor favor, usa este formato:\n• Fecha: dd/mm/aaaa\n• Hora: HH:MM\n\nEjemplo: 15/06/2025 a las 14:30"
+  }
+}

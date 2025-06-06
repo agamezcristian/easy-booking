@@ -1,0 +1,36 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "list",
+    "body": {
+      "text": "Lo siento {customer_name}, la fecha y hora solicitada no está disponible. 😔\n\nTe ofrezco estas alternativas cercanas a tu preferencia:"
+    },
+    "action": {
+      "button": "Ver horarios",
+      "sections": [
+        {
+          "title": "Horarios Disponibles",
+          "rows": [
+            {
+              "id": "alt_slot_1",
+              "title": "{alternative_date_1}",
+              "description": "{alternative_time_1}"
+            },
+            {
+              "id": "alt_slot_2",
+              "title": "{alternative_date_2}",
+              "description": "{alternative_time_2}"
+            },
+            {
+              "id": "alt_slot_3",
+              "title": "{alternative_date_3}",
+              "description": "{alternative_time_3}"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

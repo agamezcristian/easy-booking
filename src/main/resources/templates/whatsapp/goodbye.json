@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "Gracias por usar nuestro servicio {{customer_name}}. 😊\n\nSi necesitas ayuda en el futuro, no dudes en escribirnos. ¡Que tengas un excelente día! 👋"
+  }
+}

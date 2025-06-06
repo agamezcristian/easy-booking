@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "⏰ La fecha y hora que indicaste ya pasó.\n\nPor favor, selecciona una fecha y hora futura para tu cita."
+  }
+}

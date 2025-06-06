@@ -1,0 +1,41 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "interactive",
+  "interactive": {
+    "type": "list",
+    "body": {
+      "text": "¡Hola {{customer_name}}! Es un placer atenderte. 😊\n\n¿En qué puedo ayudarte hoy?"
+    },
+    "action": {
+      "button": "Ver opciones",
+      "sections": [
+        {
+          "title": "Gestión de Citas",
+          "rows": [
+            {
+              "id": "schedule_appointment",
+              "title": "📅 Agendar cita",
+              "description": "Programar una nueva cita"
+            },
+            {
+              "id": "reschedule_appointment",
+              "title": "🔄 Reagendar cita",
+              "description": "Cambiar fecha/hora de cita existente"
+            },
+            {
+              "id": "cancel_appointment",
+              "title": "❌ Cancelar cita",
+              "description": "Cancelar una cita programada"
+            },
+            {
+              "id": "consult_appointment",
+              "title": "📋 Consultar citas",
+              "description": "Ver mis citas programadas"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

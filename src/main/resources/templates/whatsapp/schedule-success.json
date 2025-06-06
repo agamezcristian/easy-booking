@@ -1,0 +1,8 @@
+{
+  "messaging_product": "whatsapp",
+  "to": "{{customer_phone}}",
+  "type": "text",
+  "text": {
+    "body": "🎉 ¡Cita agendada exitosamente!\n\n📅 Fecha: {{appointment_date}}\n🕐 Hora: {{appointment_time}}\n📍 Código de cita: {{appointment_code}}\n\nTe enviaremos un recordatorio antes de tu cita. ¡Nos vemos pronto! 😊"
+  }
+}
