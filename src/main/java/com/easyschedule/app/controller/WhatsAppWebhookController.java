@@ -19,8 +19,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 
 @Log4j2
@@ -37,7 +35,7 @@ public class WhatsAppWebhookController {
     private String webhookSecret;
 
     private final WhatsAppService whatsAppService;
-    private final ObjectMapper objectMapper;
+
 
     @GetMapping
     public ResponseEntity<String> verifyWebhook(
@@ -70,13 +68,7 @@ public class WhatsAppWebhookController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
             }
 
-            // Parsear el payload
-            WhatsAppWebhookPayload webhookPayload = objectMapper.readValue(payload, WhatsAppWebhookPayload.class);
-
-            // Procesar cada entrada
-            for (WhatsAppEntry entry : webhookPayload.getEntry()) {
-                processEntry(entry);
-            }
+            whatsAppService.processMessages(payload);
 
             return ResponseEntity.ok("OK");
 
@@ -86,138 +78,7 @@ public class WhatsAppWebhookController {
         }
     }
 
-    private void processEntry(WhatsAppEntry entry) {
-        for (WhatsAppChange change : entry.getChanges()) {
-            if ("messages".equals(change.getField())) {
-                processMessages(change.getValue());
-            }
-        }
-    }
 
-    private void processMessages(WhatsAppValue value) {
-        if (value.getMessages() != null) {
-            for (WhatsAppMessage message : value.getMessages()) {
-                processMessage(message, value);
-            }
-        }
-    }
-
-    private void processMessage(WhatsAppMessage message, WhatsAppValue value) {
-        String messageId = message.getId();
-        String from = message.getFrom();
-        String timestamp = message.getTimestamp();
-        String type = message.getType();
-
-        // Obtener información del contacto
-        String contactName = getContactName(value.getContacts(), message.getFrom());
-
-        logger.info("Mensaje recibido - ID: {}, From: {}, Type: {}, Contact: {}",
-                messageId, from, type, contactName);
-
-        switch (type) {
-            case "text":
-                processTextMessage(message, from, contactName);
-                break;
-            case "interactive":
-                processInteractiveMessage(message, from, contactName);
-                break;
-            case "image":
-                processImageMessage(message, from, contactName);
-                break;
-            case "audio":
-                processAudioMessage(message, from, contactName);
-                break;
-            case "document":
-                processDocumentMessage(message, from, contactName);
-                break;
-            default:
-                logger.info("Tipo de mensaje no manejado: {}", type);
-                break;
-        }
-    }
-
-    private void processTextMessage(WhatsAppMessage message, String from, String contactName) {
-        String textContent = message.getText().getBody();
-
-        logger.info("Mensaje de texto de {}: {}", contactName, textContent);
-
-        // Procesar el mensaje de texto
-        whatsAppService.handleTextMessage(from, contactName, textContent, message.getId());
-    }
-
-    private void processInteractiveMessage(WhatsAppMessage message, String from, String contactName) {
-        WhatsAppInteractive interactive = message.getInteractive();
-        String interactiveType = interactive.getType();
-
-        logger.info("Mensaje interactivo de {} - Tipo: {}", contactName, interactiveType);
-
-        switch (interactiveType) {
-            case "list_reply":
-                processListReply(interactive.getListReply(), from, contactName, message.getId());
-                break;
-            case "button_reply":
-                processButtonReply(interactive.getButtonReply(), from, contactName, message.getId());
-                break;
-            default:
-                logger.info("Tipo de mensaje interactivo no manejado: {}", interactiveType);
-                break;
-        }
-    }
-
-    private void processListReply(WhatsAppListReply listReply, String from, String contactName, String messageId) {
-        String selectedId = listReply.getId();
-        String selectedTitle = listReply.getTitle();
-        String selectedDescription = listReply.getDescription();
-
-        logger.info("Lista seleccionada por {} - ID: {}, Título: {}, Descripción: {}",
-                contactName, selectedId, selectedTitle, selectedDescription);
-
-        // Procesar la opción seleccionada de la lista
-        whatsAppService.handleListSelection(from, contactName, selectedId, selectedTitle, selectedDescription, messageId);
-    }
-
-    private void processButtonReply(WhatsAppButtonReply buttonReply, String from, String contactName, String messageId) {
-        String selectedId = buttonReply.getId();
-        String selectedTitle = buttonReply.getTitle();
-
-        logger.info("Botón seleccionado por {} - ID: {}, Título: {}",
-                contactName, selectedId, selectedTitle);
-
-        // Procesar el botón seleccionado
-        whatsAppService.handleButtonSelection(from, contactName, selectedId, selectedTitle, messageId);
-    }
-
-    private void processImageMessage(WhatsAppMessage message, String from, String contactName) {
-        WhatsAppMedia image = message.getImage();
-        logger.info("Imagen recibida de {}: ID={}, MIME={}", contactName, image.getId(), image.getMimeType());
-
-        whatsAppService.handleImageMessage(from, contactName, image, message.getId());
-    }
-
-    private void processAudioMessage(WhatsAppMessage message, String from, String contactName) {
-        WhatsAppMedia audio = message.getAudio();
-        logger.info("Audio recibido de {}: ID={}, MIME={}", contactName, audio.getId(), audio.getMimeType());
-
-        whatsAppService.handleAudioMessage(from, contactName, audio, message.getId());
-    }
-
-    private void processDocumentMessage(WhatsAppMessage message, String from, String contactName) {
-        WhatsAppMedia document = message.getDocument();
-        logger.info("Documento recibido de {}: ID={}, Filename={}", contactName, document.getId(), document.getFilename());
-
-        whatsAppService.handleDocumentMessage(from, contactName, document, message.getId());
-    }
-
-    private String getContactName(List<WhatsAppContact> contacts, String phoneNumber) {
-        if (contacts != null) {
-            for (WhatsAppContact contact : contacts) {
-                if (phoneNumber.equals(contact.getWaId())) {
-                    return contact.getProfile() != null ? contact.getProfile().getName() : phoneNumber;
-                }
-            }
-        }
-        return phoneNumber;
-    }
 
     private boolean verifySignature(String payload, String signature) {
         try {

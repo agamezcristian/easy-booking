@@ -5,7 +5,7 @@
   "interactive": {
     "type": "button",
     "body": {
-      "text": "¡Hola! Soy {bot_name}, tu asistente virtual para gestión de citas. 👋\n\nPara brindarte el mejor servicio, necesito tu autorización para el tratamiento de tus datos personales conforme a nuestra política de privacidad.\n\n¿Autorizas el tratamiento de tus datos?"
+      "text": "¡Hola! Soy {{bot_name}}, tu asistente virtual para gestión de citas. 👋\n\nPara brindarte el mejor servicio, necesito tu autorización para el tratamiento de tus datos personales conforme a nuestra política de privacidad.\n\n¿Autorizas el tratamiento de tus datos?"
     },
     "action": {
       "buttons": [

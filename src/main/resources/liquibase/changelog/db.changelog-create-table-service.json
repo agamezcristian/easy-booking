@@ -1,0 +1,134 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "create-service-table",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "service",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "nullable": false,
+                      "primaryKey": true,
+                      "unique": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "business_id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "nullable": false,
+                      "foreignKeyName": "fk_service_business",
+                      "references": "business(id)"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "TEXT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "duration",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "price",
+                    "type": "DECIMAL(10,2)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "status",
+                    "type": "VARCHAR(50)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    },
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "updated_at",
+                    "type": "TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "last_modified_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "add-index-appointment",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "createIndex": {
+              "indexName": "idx_name",
+              "tableName": "service",
+              "columns": [
+                {
+                  "column": {
+                    "name": "name"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

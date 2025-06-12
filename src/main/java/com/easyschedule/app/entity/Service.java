@@ -1,25 +1,19 @@
 package com.easyschedule.app.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "service")
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
-public class Service {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Entity
+@Table(name = "service")
+public class Service extends EasyBookingBaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "business_id")
@@ -27,16 +21,9 @@ public class Service {
 
     private String name;
     private String description;
-    private Integer duration; // in minutes
+    private Integer duration;
     private BigDecimal price;
     private String status;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    // Getters and Setters
 }
 

@@ -17,7 +17,7 @@
     },
     {
       "include": {
-        "file": "classpath:liquibase/changelog/db.changelog-create-tables-services-and-others.json"
+        "file": "classpath:liquibase/changelog/db.changelog-create-tables-service.json"
       }
     }
   ]

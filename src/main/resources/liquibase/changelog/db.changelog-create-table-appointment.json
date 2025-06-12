@@ -1,0 +1,146 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "create-appointment-table",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "appointment",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "primaryKey": true,
+                      "nullable": false,
+                      "unique": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "business_id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "nullable": false,
+                      "foreignKeyName": "fk_appointment_business",
+                      "references": "business(id)"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "customer_id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "nullable": false,
+                      "foreignKeyName": "fk_appointment_customer",
+                      "references": "customer(id)"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "appointment_date",
+                    "type": "DATE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "appointment_time",
+                    "type": "TIME"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "status",
+                    "type": "VARCHAR(50)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "send_reminder",
+                    "type": "BOOLEAN"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    },
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "updated_at",
+                    "type": "TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "last_modified_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "add-indexes-appointment",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "createIndex": {
+              "indexName": "idx_business_id",
+              "tableName": "appointment",
+              "columns": [
+                {
+                  "column": {
+                    "name": "business_id"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "createIndex": {
+              "indexName": "idx_customer_id",
+              "tableName": "appointment",
+              "columns": [
+                {
+                  "column": {
+                    "name": "customer_id"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

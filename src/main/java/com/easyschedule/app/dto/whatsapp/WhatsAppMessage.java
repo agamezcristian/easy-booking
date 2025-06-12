@@ -14,6 +14,7 @@ public class WhatsAppMessage {
     private String id;
     private String timestamp;
     private String type;
+    private String to;
     private WhatsAppText text;
     private WhatsAppInteractive interactive;
     private WhatsAppMedia image;

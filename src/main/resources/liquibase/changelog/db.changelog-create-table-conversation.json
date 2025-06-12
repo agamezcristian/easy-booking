@@ -1,0 +1,225 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "create-conversation-table",
+        "author": "Cristian",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "conversation",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "nullable": false,
+                      "primaryKey": true,
+                      "unique": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "customer_id",
+                    "type": "VARCHAR(20)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "business_id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "channel_id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "status",
+                    "type": "VARCHAR(20)",
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "defaultValue": "ACTIVE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    },
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "updated_at",
+                    "type": "TIMESTAMP",
+                    "constraints": {
+                      "nullable": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "conversation_start_at",
+                    "type": "TIMESTAMP",
+                    "constraints": {
+                      "nullable": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "conversation_end_at",
+                    "type": "TIMESTAMP",
+                    "constraints": {
+                      "nullable": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "last_modified_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "add-foreign-keys",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "conversation",
+              "baseColumnNames": "customer_id",
+              "constraintName": "fk_conversation_customer",
+              "referencedTableName": "customer",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE",
+              "onUpdate": "CASCADE"
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "conversation",
+              "baseColumnNames": "channel_id",
+              "constraintName": "fk_conversation_channel",
+              "referencedTableName": "channel",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE",
+              "onUpdate": "CASCADE"
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "conversation",
+              "baseColumnNames": "business_id",
+              "constraintName": "fk_conversation_business",
+              "referencedTableName": "business",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE",
+              "onUpdate": "CASCADE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "add-indexes-conversation",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "createIndex": {
+              "indexName": "idx_customer_id",
+              "tableName": "conversation",
+              "columns": [
+                {
+                  "column": {
+                    "name": "customer_id"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "createIndex": {
+              "indexName": "idx_conversation_business_id",
+              "tableName": "conversation",
+              "columns": [
+                {
+                  "column": {
+                    "name": "business_id"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "createIndex": {
+              "indexName": "idx_conversation_status",
+              "tableName": "conversation",
+              "columns": [
+                {
+                  "column": {
+                    "name": "status"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "createIndex": {
+              "indexName": "idx_conversation_channel_id",
+              "tableName": "conversation",
+              "columns": [
+                {
+                  "column": {
+                    "name": "channel_id"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
