@@ -1,0 +1,858 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "001-create-plans-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "plans",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(100)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "code",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": false,
+                      "unique": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "TEXT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "active",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": true
+                  }
+                },
+                {
+                  "column": {
+                    "name": "display_order",
+                    "type": "INT",
+                    "defaultValueNumeric": 0
+                  }
+                },
+                {
+                  "column": {
+                    "name": "features",
+                    "type": "JSON"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "updated_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "002-create-plan-prices-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "plan_prices",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "plan_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "billing_cycle",
+                    "type": "ENUM('monthly', 'yearly', 'quarterly')",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "base_price",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "currency",
+                    "type": "VARCHAR(3)",
+                    "defaultValue": "USD"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "active",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": true
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "plan_prices",
+              "baseColumnNames": "plan_id",
+              "constraintName": "fk_plan_prices_plan",
+              "referencedTableName": "plans",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          {
+            "addUniqueConstraint": {
+              "tableName": "plan_prices",
+              "columnNames": "plan_id, billing_cycle",
+              "constraintName": "unique_plan_billing_cycle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "003-create-coupons-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "coupons",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "code",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": false,
+                      "unique": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(100)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "discount_type",
+                    "type": "ENUM('percentage', 'fixed_amount')",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "discount_value",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "max_uses",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "max_uses_per_user",
+                    "type": "INT",
+                    "defaultValueNumeric": 1
+                  }
+                },
+                {
+                  "column": {
+                    "name": "current_uses",
+                    "type": "INT",
+                    "defaultValueNumeric": 0
+                  }
+                },
+                {
+                  "column": {
+                    "name": "start_date",
+                    "type": "DATE",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "expiration_date",
+                    "type": "DATE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "applicable_plans",
+                    "type": "JSON"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "applicable_cycles",
+                    "type": "JSON"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "new_users_only",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": false
+                  }
+                },
+                {
+                  "column": {
+                    "name": "is_stackable",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": false
+                  }
+                },
+                {
+                  "column": {
+                    "name": "active",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": true
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_by",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "updated_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "004-create-automatic-discounts-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "automatic_discounts",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(100)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "TEXT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "condition_type",
+                    "type": "ENUM('billing_cycle', 'month_quantity', 'specific_plan', 'new_user')",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "condition_value",
+                    "type": "VARCHAR(100)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "discount_type",
+                    "type": "ENUM('percentage', 'fixed_amount')",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "discount_value",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "applicable_plans",
+                    "type": "JSON"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "is_stackable",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": false
+                  }
+                },
+                {
+                  "column": {
+                    "name": "priority",
+                    "type": "INT",
+                    "defaultValueNumeric": 1
+                  }
+                },
+                {
+                  "column": {
+                    "name": "active",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": true
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "005-create-subscriptions-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "subscriptions",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "plan_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "plan_price_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "status",
+                    "type": "ENUM('active', 'cancelled', 'suspended', 'expired')",
+                    "defaultValue": "active"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "start_date",
+                    "type": "DATE",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "end_date",
+                    "type": "DATE",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "original_price",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "final_price",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "applied_coupon_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "applied_discounts",
+                    "type": "JSON"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "auto_renewal",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": true
+                  }
+                },
+                {
+                  "column": {
+                    "name": "gateway_subscription_id",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "updated_at",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "subscriptions",
+              "baseColumnNames": "plan_id",
+              "constraintName": "fk_subscriptions_plan",
+              "referencedTableName": "plans",
+              "referencedColumnNames": "id"
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "subscriptions",
+              "baseColumnNames": "plan_price_id",
+              "constraintName": "fk_subscriptions_plan_price",
+              "referencedTableName": "plan_prices",
+              "referencedColumnNames": "id"
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "subscriptions",
+              "baseColumnNames": "applied_coupon_id",
+              "constraintName": "fk_subscriptions_coupon",
+              "referencedTableName": "coupons",
+              "referencedColumnNames": "id"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "006-create-transactions-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "transactions",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "subscription_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "type",
+                    "type": "ENUM('payment', 'refund', 'adjustment')",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "amount",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "currency",
+                    "type": "VARCHAR(3)",
+                    "defaultValue": "USD"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "status",
+                    "type": "ENUM('pending', 'completed', 'failed', 'cancelled')",
+                    "defaultValue": "pending"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "gateway",
+                    "type": "VARCHAR(50)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "transaction_id",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "processing_date",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "metadata",
+                    "type": "JSON"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "transactions",
+              "baseColumnNames": "subscription_id",
+              "constraintName": "fk_transactions_subscription",
+              "referencedTableName": "subscriptions",
+              "referencedColumnNames": "id"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "007-create-coupon-uses-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "coupon_uses",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "coupon_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "subscription_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "discount_amount",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "use_date",
+                    "type": "TIMESTAMP",
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "coupon_uses",
+              "baseColumnNames": "coupon_id",
+              "constraintName": "fk_coupon_uses_coupon",
+              "referencedTableName": "coupons",
+              "referencedColumnNames": "id"
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "coupon_uses",
+              "baseColumnNames": "subscription_id",
+              "constraintName": "fk_coupon_uses_subscription",
+              "referencedTableName": "subscriptions",
+              "referencedColumnNames": "id"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "008-create-plan-features-table",
+        "author": "developer",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "plan_features",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "INT",
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "plan_id",
+                    "type": "INT",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "feature",
+                    "type": "VARCHAR(100)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "value",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "type",
+                    "type": "ENUM('number', 'text', 'boolean')",
+                    "defaultValue": "text"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "addForeignKeyConstraint": {
+              "baseTableName": "plan_features",
+              "baseColumnNames": "plan_id",
+              "constraintName": "fk_plan_features_plan",
+              "referencedTableName": "plans",
+              "referencedColumnNames": "id",
+              "onDelete": "CASCADE"
+            }
+          },
+          {
+            "addUniqueConstraint": {
+              "tableName": "plan_features",
+              "columnNames": "plan_id, feature",
+              "constraintName": "unique_plan_feature"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
