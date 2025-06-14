@@ -17,10 +17,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Message extends EasyBookingBaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "conversacion_id")
-    private Conversation conversation;
-
     @Lob
     @Column(name = "message_content", nullable = false, columnDefinition = "TEXT")
     private String messageContent;
@@ -34,21 +30,6 @@ public class Message extends EasyBookingBaseEntity {
     @Column(name = "sender_type", length = 20, nullable = false)
     private SenderType senderType;
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @Column(name = "created_by", length = 50, updatable = false)
-    private String createdBy;
-
-    @Column(name = "last_modified_by", length = 50)
-    private String lastModifiedBy;
-
-    // Relaciones
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conversacion_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Conversation conversation;
