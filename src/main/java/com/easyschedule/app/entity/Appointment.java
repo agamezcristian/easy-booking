@@ -1,7 +1,19 @@
 package com.easyschedule.app.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,28 +24,39 @@ import java.time.LocalTime;
 @Getter
 @Builder
 @Entity
-@Table(name = "appointment")
+@Table(name = "appointment", indexes = {
+        @Index(name = "idx_appointment_business_id", columnList = "business_id"),
+        @Index(name = "idx_appointment_customer_id", columnList = "customer_id"),
+        @Index(name = "idx_appointment_status", columnList = "status")
+})
 public class Appointment extends EasyBookingBaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "business_id")
-    private Business business;
+    @Column(name = "business_id", length = 32, nullable = false)
+    private String businessId;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @Column(name = "customer_id", length = 32, nullable = false)
+    private String customerId;
 
-    @Column(name = "appointment_date")
+    @Column(name = "appointment_date", nullable = false)
     private LocalDate appointmentDate;
 
-    @Column(name = "appointment_time")
+    @Column(name = "appointment_time", nullable = false)
     private LocalTime appointmentTime;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private AppointmentStatus status;
 
     @Column(name = "send_reminder")
     private Boolean sendReminder;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "business_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Business business;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Customer customer;
 
 
 }

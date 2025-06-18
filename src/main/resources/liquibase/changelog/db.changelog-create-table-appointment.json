@@ -115,7 +115,7 @@
         "changes": [
           {
             "createIndex": {
-              "indexName": "idx_business_id",
+              "indexName": "idx_appointment_business_id",
               "tableName": "appointment",
               "columns": [
                 {
@@ -128,12 +128,25 @@
           },
           {
             "createIndex": {
-              "indexName": "idx_customer_id",
+              "indexName": "idx_appointment_customer_id",
               "tableName": "appointment",
               "columns": [
                 {
                   "column": {
                     "name": "customer_id"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "createIndex": {
+              "indexName": "idx_appointment_status",
+              "tableName": "appointment",
+              "columns": [
+                {
+                  "column": {
+                    "name": "status"
                   }
                 }
               ]
