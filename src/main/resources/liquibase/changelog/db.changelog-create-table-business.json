@@ -60,7 +60,8 @@
                 {
                   "column": {
                     "name": "status",
-                    "type": "VARCHAR(50)",
+                    "type": "BOOLEAN",
+                    "defaultValue": true,
                     "constraints": {
                       "nullable": false
                     }
@@ -145,7 +146,7 @@
         "changes": [
           {
             "createIndex": {
-              "indexName": "idx_id",
+              "indexName": "idx_business_id",
               "tableName": "business",
               "columns": [
                 {
@@ -158,7 +159,7 @@
           },
           {
             "createIndex": {
-              "indexName": "idx_email",
+              "indexName": "idx_business_email",
               "tableName": "business",
               "columns": [
                 {
@@ -171,7 +172,7 @@
           },
           {
             "createIndex": {
-              "indexName": "idx_name",
+              "indexName": "idx_business_name",
               "tableName": "business",
               "columns": [
                 {
@@ -184,7 +185,7 @@
           },
           {
             "createIndex": {
-              "indexName": "idx_status",
+              "indexName": "idx_business_status",
               "tableName": "business",
               "columns": [
                 {
