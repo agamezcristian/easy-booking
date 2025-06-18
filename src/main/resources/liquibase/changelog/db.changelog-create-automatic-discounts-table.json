@@ -1,0 +1,191 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "create-automatic-discounts-table",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "createTable": {
+              "tableName": "automatic_discounts",
+              "columns": [
+                {
+                  "column": {
+                    "name": "id",
+                    "type": "VARCHAR(32)",
+                    "constraints": {
+                      "primaryKey": true,
+                      "nullable": false,
+                      "unique": true
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(100)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "TEXT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "condition_type",
+                    "type": "ENUM('billing_cycle', 'month_quantity', 'specific_plan', 'new_user')",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "condition_value",
+                    "type": "VARCHAR(100)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "discount_type",
+                    "type": "ENUM('percentage', 'fixed_amount')",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "discount_value",
+                    "type": "DECIMAL(10,2)",
+                    "constraints": {
+                      "nullable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "applicable_plans",
+                    "type": "JSON"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "is_stackable",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": false
+                  }
+                },
+                {
+                  "column": {
+                    "name": "priority",
+                    "type": "INT",
+                    "defaultValueNumeric": 1
+                  }
+                },
+                {
+                  "column": {
+                    "name": "active",
+                    "type": "BOOLEAN",
+                    "defaultValueBoolean": true
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_at",
+                    "type": "TIMESTAMP",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    },
+                    "defaultValueComputed": "CURRENT_TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "updated_at",
+                    "type": "TIMESTAMP"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "created_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": false,
+                      "updatable": false
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "last_modified_by",
+                    "type": "VARCHAR(50)",
+                    "constraints": {
+                      "nullable": true
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "add-indexes-automatic_discounts",
+        "author": "Cristian Agamez",
+        "changes": [
+          {
+            "createIndex": {
+              "indexName": "idx_automatic_discounts_condition_type",
+              "tableName": "automatic_discounts",
+              "columns": [
+                {
+                  "column": {
+                    "name": "condition_type"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "createIndex": {
+              "indexName": "idx_automatic_discounts_discount_type",
+              "tableName": "automatic_discounts",
+              "columns": [
+                {
+                  "column": {
+                    "name": "discount_type"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "createIndex": {
+              "indexName": "idx_automatic_discounts_status",
+              "tableName": "automatic_discounts",
+              "columns": [
+                {
+                  "column": {
+                    "name": "status"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
