@@ -3,7 +3,7 @@
     {
       "changeSet": {
         "id": "create-conversation-sessions-table",
-        "author": "Cristian",
+        "author": "Cristian Agamez",
         "changes": [
           {
             "createTable": {
@@ -22,7 +22,7 @@
                 },
                 {
                   "column": {
-                    "name": "conversacion_id",
+                    "name": "conversation_id",
                     "type": "VARCHAR(32)",
                     "constraints": {
                       "nullable": false,
@@ -35,7 +35,7 @@
                     "name": "current_step",
                     "type": "VARCHAR(100)",
                     "constraints": {
-                      "nullable": true
+                      "nullable": false
                     }
                   }
                 },
@@ -44,7 +44,7 @@
                     "name": "last_activity",
                     "type": "TIMESTAMP",
                     "constraints": {
-                      "nullable": true
+                      "nullable": false
                     }
                   }
                 },
@@ -96,12 +96,12 @@
     {
       "changeSet": {
         "id": "add-foreign-keys",
-        "author": "Cristian",
+        "author": "Cristian Agamez",
         "changes": [
           {
             "addForeignKeyConstraint": {
               "baseTableName": "conversation_sessions",
-              "baseColumnNames": "conversacion_id",
+              "baseColumnNames": "conversation_id",
               "constraintName": "fk_conversation_sessions_conversation",
               "referencedTableName": "conversation",
               "referencedColumnNames": "id",
@@ -115,16 +115,16 @@
     {
       "changeSet": {
         "id": "add-indexes",
-        "author": "Cristian",
+        "author": "Cristian Agamez",
         "changes": [
           {
             "createIndex": {
               "indexName": "idx_conversation_sessions_conversacion_id",
-              "tableName": "whatsapp_configuration",
+              "tableName": "conversation_sessions",
               "columns": [
                 {
                   "column": {
-                    "name": "conversacion_id"
+                    "name": "conversation_id"
                   }
                 }
               ]
@@ -133,7 +133,7 @@
           {
             "createIndex": {
               "indexName": "idx_conversation_sessions_current_step",
-              "tableName": "whatsapp_configuration",
+              "tableName": "conversation_sessions",
               "columns": [
                 {
                   "column": {
