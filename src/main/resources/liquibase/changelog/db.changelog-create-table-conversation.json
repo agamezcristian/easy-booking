@@ -168,7 +168,7 @@
         "changes": [
           {
             "createIndex": {
-              "indexName": "idx_customer_id",
+              "indexName": "idx_conversation_customer_id",
               "tableName": "conversation",
               "columns": [
                 {

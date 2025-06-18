@@ -61,7 +61,7 @@
                   "column": {
                     "name": "status",
                     "type": "BOOLEAN",
-                    "defaultValue": true,
+                    "defaultValueBoolean": true,
                     "constraints": {
                       "nullable": false
                     }
