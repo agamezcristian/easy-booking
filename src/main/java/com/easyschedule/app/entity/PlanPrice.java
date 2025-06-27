@@ -1,25 +1,32 @@
 package com.easyschedule.app.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 @Entity
-@Table(name = "plan_precios",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"plan_id", "ciclo_facturacion"}))
-public class PlanPrice {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@Table(name = "plan_prices")
+public class PlanPrice extends EasyBookingBaseEntity {
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ciclo_facturacion", nullable = false)
+    @Column(name = "billing_cycle", nullable = false)
     private BillingCycle billingCycle;
 
-    @Column(name = "precio_base", nullable = false, precision = 10, scale = 2)
+    @Column(name = "base_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal basePrice;
 
     @Column(nullable = false, length = 3)
@@ -28,15 +35,11 @@ public class PlanPrice {
     @Column(nullable = false)
     private Boolean active = true;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
     @ManyToOne
     @JoinColumn(name = "plan_id", nullable = false)
     private Plan plan;
 
     public enum BillingCycle {
-        mensual, anual, trimestral
+        monthly, yearly, quarterly
     }
 }

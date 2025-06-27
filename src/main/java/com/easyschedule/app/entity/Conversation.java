@@ -13,10 +13,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "conversation", indexes = {
         @Index(name = "idx_conversation_customer_id", columnList = "customer_id"),

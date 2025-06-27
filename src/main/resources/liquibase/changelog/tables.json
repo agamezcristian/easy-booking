@@ -326,7 +326,7 @@
     },
     {
       "changeSet": {
-        "id": "004-create-automatic-discounts-table",
+        "id": "create-automatic-discounts-table",
         "author": "developer",
         "changes": [
           {
@@ -336,10 +336,11 @@
                 {
                   "column": {
                     "name": "id",
-                    "type": "INT",
-                    "autoIncrement": true,
+                    "type": "VARCHAR(32)",
                     "constraints": {
-                      "primaryKey": true
+                      "primaryKey": true,
+                      "nullable": false,
+                      "unique": true
                     }
                   }
                 },
@@ -419,13 +420,6 @@
                     "name": "active",
                     "type": "BOOLEAN",
                     "defaultValueBoolean": true
-                  }
-                },
-                {
-                  "column": {
-                    "name": "created_at",
-                    "type": "TIMESTAMP",
-                    "defaultValueComputed": "CURRENT_TIMESTAMP"
                   }
                 }
               ]
